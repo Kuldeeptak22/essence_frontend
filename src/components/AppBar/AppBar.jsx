@@ -6,10 +6,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../essets/images/essence.png";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import "./AppBar.scss";
+import { NavLink } from "react-router-dom";
 
 const navigation = [
-  { name: "New", to: "/newPage", current: true },
+  { name: "New", to: "/newPage", current: false },
   { name: "Offers", to: "/offers", current: false },
   { name: "About", to: "/about", current: false },
   { name: "Contact Us", to: "/contact", current: false },
@@ -33,6 +33,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: "20ch",
       "&:focus": {
         width: "23ch",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      "&:focus": {
+        width: "25ch",
       },
     },
   },
@@ -75,12 +81,12 @@ const AppBar = () => {
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="text-white text-right pb-1">
               <div></div>
-              <div className="text-[0.8rem] py-1">
-                24/7 Customer service{" "}
-                <span className="text-yellow-300">1-800-234-5678</span>{" "}
+              <div className="text-[0.8rem] py-1 hidden sm:block">
+                24/7 Customer service:
+                <span className="text-yellow-300"> +91-9664408473</span>{" "}
               </div>
             </div>
-            <div className="relative flex h-28 lg:h-16 justify-between">
+            <div className="relative flex h-28 lg:h-16 justify-between mt-2">
               <div className="absolute inset-y-0 left-0 flex sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex h-10 justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -95,29 +101,36 @@ const AppBar = () => {
               </div>
               <div className="flex flex-1 justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0">
-                  <img className="h-10 w-auto" src={Logo} alt="Your Company" />
+                  <a href="/">
+                    <img
+                      className="h-10 w-auto"
+                      src={Logo}
+                      alt="Your Company"
+                    />
+                  </a>
                 </div>
+                {/* Desktop Navigation  */}
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
-                        href={item.to}
+                        to={item.to}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            ? "bg-gray-900 text-white no-underline"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white no-underline",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
               </div>
-              <div className="searchBar absolute lg:static top-12">
+              <div className="searchBar absolute lg:static top-12 left-[10%]">
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -163,18 +176,18 @@ const AppBar = () => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <NavLink
+                            to="/"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Profile
-                          </a>
+                          </NavLink>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
@@ -186,18 +199,20 @@ const AppBar = () => {
                             Settings
                           </a>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <NavLink
+                            to="/"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              active
+                                ? "bg-gray-100 no-underline"
+                                : "no-underline",
+                              "block px-4 py-2 text-sm text-gray-700 no-underline"
                             )}
                           >
                             Sign out
-                          </a>
+                          </NavLink>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -206,24 +221,25 @@ const AppBar = () => {
               </div>
             </div>
           </div>
-
+            {/* Mobile Navigatio  */}
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
+                <NavLink to={item.to} className="nav-link">
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white no-underline",
+                      "block rounded-md px-3 py-2 text-base font-medium "
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                </NavLink>
               ))}
             </div>
           </Disclosure.Panel>

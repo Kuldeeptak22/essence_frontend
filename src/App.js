@@ -1,11 +1,12 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppBar from "./components/AppBar/AppBar";
 import HomePage from "./pages/HomePage";
 import NewPage from "./pages/NewPage";
 import AboutPage from "./pages/AboutPage";
 import OffersPage from "./pages/OffersPage";
-import { ContactPage } from "@mui/icons-material";
+import ContactPage from './pages/ContactPage'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
 
 function App() {
   return (
@@ -20,7 +21,6 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </Router>
-      <h1>hello</h1>
     </div>
   );
 }

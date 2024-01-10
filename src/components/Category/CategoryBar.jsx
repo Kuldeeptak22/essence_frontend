@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { getCategories } from "../../redux/categoryBar/categoryActions";
 import { useDispatch, useSelector } from "react-redux";
-import { BaseURL } from "../../utils/nameSpace";
 import PopupCategory from "./PopupCategory";
 
 const CategoryBar = () => {
+  const [categoryDetails, setCategoryDetails] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +15,10 @@ const CategoryBar = () => {
   const categoryData = useSelector(
     (state) => state?.category?.categories?.data
   );
-  console.log("categoryData", categoryData);
+
+  const clickCategory = (categoryName) => {
+    setCategoryDetails(categoryName);
+  };
   return (
     <Container fluid className="g-0">
       <Row className="bg-red-400 g-0 py-4">
@@ -24,8 +27,12 @@ const CategoryBar = () => {
             <Col
               className="px-1"
               key={category._id}
+              onClick={() => clickCategory(category?.name)}
             >
-              <PopupCategory category={category?.name} />
+              <PopupCategory
+                category={category?.name}
+                clickedCategory={categoryDetails}
+              />
             </Col>
           ))}
       </Row>

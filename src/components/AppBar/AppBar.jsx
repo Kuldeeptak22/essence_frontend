@@ -2,7 +2,7 @@ import React from "react";
 import { Fragment } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon,ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Logo from "../../essets/images/essence.png";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
@@ -83,7 +83,13 @@ const AppBar = () => {
               <div></div>
               <div className="text-[0.8rem] py-1 hidden sm:block">
                 24/7 Customer service:
-                <span className="text-yellow-300"> +91-9664408473</span>{" "}
+                <a
+                  href="tel:+91-9664408473"
+                  className="no-underline text-yellow-300 px-1"
+                >
+                  91-9664408473
+                </a>
+                {/* <span className="text-yellow-300"> +91-9664408473</span>{" "} */}
               </div>
             </div>
             <div className="relative flex h-28 lg:h-16 justify-between mt-2">
@@ -148,7 +154,7 @@ const AppBar = () => {
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
@@ -221,7 +227,7 @@ const AppBar = () => {
               </div>
             </div>
           </div>
-            {/* Mobile Navigatio  */}
+          {/* Mobile Navigatio  */}
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (

@@ -13,6 +13,8 @@ const Carousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     lazyLoad: "ondemand",
+    autoplay: true,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,

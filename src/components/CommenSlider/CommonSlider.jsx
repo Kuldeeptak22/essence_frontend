@@ -4,11 +4,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Container, Row } from "react-bootstrap";
 import { Skeleton } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommonCard from "../CommonCard/CommonCard";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import OfferCard from "../OfferCard/OfferCard";
+import { getSubCategories } from "../../redux/subCategory/subCategoryAction";
 
-const CommonSlider = ({categoryName}) => {
+const CommonSlider = ({ categoryName, topic }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const subCategoryData = useSelector(
     (state) => state?.subCategory?.subCategories?.data
@@ -16,6 +20,7 @@ const CommonSlider = ({categoryName}) => {
 
   useEffect(() => {
     setIsLoading(false);
+    dispatch(getSubCategories());
   }, []);
 
   const settings = {
@@ -25,6 +30,8 @@ const CommonSlider = ({categoryName}) => {
     slidesToShow: 5,
     slidesToScroll: 1,
     lazyLoad: "ondemand",
+    autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 1024,
@@ -66,12 +73,21 @@ const CommonSlider = ({categoryName}) => {
   return (
     <Container
       fluid
-      className="d-flex justify-center flex-col align-middle items-center bg-slate-200"
+      className="d-flex justify-center flex-col align-middle items-center bg-slate-200 my-2"
     >
       <Row className="w-[97%]">
-        <div className="flex p-4 font-bold text-xl sm:text-center">
-          {categoryName}
+        <div className="flex justify-between items-center">
+          <div className="flex p-4 font-bold sm:text-xl text-[0.8rem] sm:text-center">
+            {categoryName}
+          </div>
+          <div className="flex p-4 font-bold sm:text-xl text-[0.8rem] sm:text-center cursor-pointer">
+            <span>View All</span>
+            <span>
+              <NavigateNextIcon />
+            </span>
+          </div>
         </div>
+
         {isLoading && (
           <div className="d-flex">
             <Skeleton
@@ -83,11 +99,17 @@ const CommonSlider = ({categoryName}) => {
           </div>
         )}
 
-        <Slider {...settings}>
+        <Slider {...settings} className="py-2">
           {subCategoryData &&
             subCategoryData
               .filter((a) => a.category.name === categoryName)
-              .map((elem) => <CommonCard elem={elem} key={elem._id} />)}
+              .map((elem) =>
+                topic === "offers" ? (
+                  <OfferCard elem={elem} key={elem._id} />
+                ) : (
+                  <CommonCard elem={elem} key={elem._id} />
+                )
+              )}
         </Slider>
       </Row>
     </Container>

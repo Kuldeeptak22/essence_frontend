@@ -4,9 +4,15 @@ import HomePage from "./pages/HomePage";
 import NewPage from "./pages/NewPage";
 import AboutPage from "./pages/AboutPage";
 import OffersPage from "./pages/OffersPage";
-import ContactPage from './pages/ContactPage'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ContactPage from "./pages/ContactPage";
+import PaymentPage from "./pages/PayementPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Footer from "./components/Footer/Footer";
+import ShippingPage from "./pages/ShippingPage";
+import CancellationPage from "./pages/CancellationPage";
+import TermsOfUse from "./pages/TermsOfUse";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -19,7 +25,13 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/offers" element={<OffersPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/shipping" element={<ShippingPage />} />
+          <Route path="/cancellation" element={<CancellationPage />} />
+          <Route path="/termsofuse" element={<TermsOfUse/>} />
+          <Route path="/privacy" element={<PrivacyPolicy/>} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

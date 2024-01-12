@@ -6,13 +6,15 @@ import CardMedia from "@mui/material/CardMedia";
 import { BaseURL } from "../../utils/nameSpace";
 import { useNavigate } from "react-router-dom";
 
-const CommonCard = ({ elem }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const OfferCard = ({ elem }) => {
   //   const navigate = useNavigate();
 
   //   const goToTvShowDetailsPage = (id) => {
   //     navigate(`/tvShows/tvShowDetails/${id}`);
   //   };
+
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
   }, [elem]);
@@ -28,7 +30,6 @@ const CommonCard = ({ elem }) => {
           <CardActionArea>
             <CardMedia
               style={{ maxHeight: 440 }}
-              // className="max-h-72"
               component="img"
               height="100%"
               width="100px"
@@ -39,21 +40,21 @@ const CommonCard = ({ elem }) => {
               <Typography gutterBottom component="div">
                 {elem?.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                from 299/-
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                style={{ color: "green", fontSize: "15px" }}
+              >
+                Min. 50% Off
               </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
       ) : (
-        <Skeleton
-          variant="rectangular"
-          width={226}
-          height={300}
-        />
+        <Skeleton variant="rectangular" width={226} height={300} />
       )}
     </>
   );
 };
 
-export default CommonCard;
+export default OfferCard;

@@ -9,6 +9,7 @@ import CommonCard from "../CommonCard/CommonCard";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import OfferCard from "../OfferCard/OfferCard";
 import { getSubCategories } from "../../redux/subCategory/subCategoryAction";
+import { NavLink } from "react-router-dom";
 
 const CommonSlider = ({ categoryName, topic }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +82,9 @@ const CommonSlider = ({ categoryName, topic }) => {
             {categoryName}
           </div>
           <div className="flex p-4 font-bold sm:text-xl text-[0.8rem] sm:text-center cursor-pointer">
-            <span>View All</span>
+            <NavLink to={`/viewall/${categoryName}`} className="nav-link">
+              <span>View All</span>
+            </NavLink>
             <span>
               <NavigateNextIcon />
             </span>

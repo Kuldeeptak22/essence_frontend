@@ -6,13 +6,13 @@ import CardMedia from "@mui/material/CardMedia";
 import { BaseURL } from "../../utils/nameSpace";
 import { useNavigate } from "react-router-dom";
 
-const CommonCard = ({ elem }) => {
+const ProductCard = ({ elem }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
-  const goToProductsPage = (id) => {
-    navigate(`/products/${id}`);
-  };
+  //   const goToProductsPage = (id) => {
+  //     navigate(`/products/${id}`);
+  //   };
   useEffect(() => {
     setIsLoading(true);
   }, [elem]);
@@ -24,24 +24,28 @@ const CommonCard = ({ elem }) => {
           sx={{ maxWidth: 400, margin: "5px" }}
           key={elem?.title}
           className="hover:scale-105"
-          onClick={() => goToProductsPage(elem?._id)}
+          //   onClick={() => goToProductsPage(elem?._id)}
         >
           <CardActionArea>
             <CardMedia
-              style={{ maxHeight: 230 }}
+              style={{ maxHeight: 500 }}
               // className="max-h-72"
               component="img"
               height="100%"
               width="100px"
-              image={`${BaseURL}/uploads/subCategories/${elem?.image}`}
+              image={`${BaseURL}/uploads/products/${elem?.thumbnail}`}
               alt={elem?.name}
             />
             <CardContent>
               <Typography gutterBottom component="div">
                 {elem?.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                from 299/-
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ color: "green", fontSize: "1rem", fontWeight: "bold" }}
+              >
+                {elem?.price}/-
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -53,4 +57,4 @@ const CommonCard = ({ elem }) => {
   );
 };
 
-export default CommonCard;
+export default ProductCard;

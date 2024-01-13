@@ -9,7 +9,6 @@ import InputBase from "@mui/material/InputBase";
 import { NavLink } from "react-router-dom";
 
 const navigation = [
-  { name: "New", to: "/newPage", current: false },
   { name: "Offers", to: "/offers", current: false },
   { name: "About", to: "/about", current: false },
   { name: "Contact Us", to: "/contact", current: false },
@@ -185,27 +184,14 @@ const AppBar = () => {
                           <NavLink
                             to="/"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              active ? "bg-gray-100  no-underline" : " no-underline",
+                              "block px-4 py-2 text-sm text-gray-700  no-underline"
                             )}
                           >
                             Your Profile
                           </NavLink>
                         )}
                       </Menu.Item>
-                      {/* <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item> */}
                       <Menu.Item>
                         {({ active }) => (
                           <NavLink

@@ -15,7 +15,6 @@ const OffersPage = () => {
   const categoryData = useSelector(
     (state) => state?.category?.categories?.data
   );
-  console.log("categoryData",categoryData)
 
   const topic = "offers"
   return (

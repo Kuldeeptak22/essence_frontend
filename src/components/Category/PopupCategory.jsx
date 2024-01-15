@@ -5,13 +5,20 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getSubCategories } from "../../redux/subCategory/subCategoryAction";
+import { NavLink, useNavigate } from "react-router-dom";
 
-const PopupCategory = ({ category,clickedCategory }) => {
+const PopupCategory = ({ category, clickedCategory }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getSubCategories());
   }, []);
+
+  const goToProductsPage = (id) => {
+    console.log("iddddd", id);
+    navigate(`/products/${id}`);
+  };
 
   const subCategoryData = useSelector(
     (state) => state?.subCategory?.subCategories?.data
@@ -21,10 +28,7 @@ const PopupCategory = ({ category,clickedCategory }) => {
     <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (
         <React.Fragment>
-          <div
-            {...bindTrigger(popupState)}
-            className="cursor-pointer"
-          >
+          <div {...bindTrigger(popupState)} className="cursor-pointer">
             <span className="sm:font-semibold">{category}</span>
             <KeyboardArrowDownIcon />
           </div>
@@ -33,9 +37,11 @@ const PopupCategory = ({ category,clickedCategory }) => {
               subCategoryData
                 .filter((a) => a.category.name === clickedCategory)
                 .map((item) => (
-                  <MenuItem key={item._id} onClick={popupState.close}>
-                    {item.name}
-                  </MenuItem>
+                  <span onClick={() => goToProductsPage(item._id)}>
+                    <MenuItem key={item._id} onClick={popupState.close}>
+                      {item.name}
+                    </MenuItem>
+                  </span>
                 ))}
           </Menu>
         </React.Fragment>

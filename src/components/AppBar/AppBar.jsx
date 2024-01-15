@@ -2,11 +2,16 @@ import React from "react";
 import { Fragment } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon,ShoppingCartIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
 import Logo from "../../essets/images/essence.png";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const navigation = [
   { name: "Offers", to: "/offers", current: false },
@@ -73,6 +78,25 @@ function classNames(...classes) {
 }
 
 const AppBar = () => {
+  const navigate = useNavigate();
+  const goToCartPage = () => {
+    navigate("/cart");
+  };
+  const signOut = () => {
+    const token = localStorage.getItem("UserToken");
+    if (token) {
+      localStorage.removeItem("UserToken");
+      setTimeout(() => {
+        const notify = () =>
+          toast.success("Logout Successfully...!!", {
+            theme: "dark",
+          });
+        notify();
+        navigate("/signin");
+      }, 2000);
+    }
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -149,12 +173,15 @@ const AppBar = () => {
               <div className="absolute inset-y-0 right-0 flex pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 items-baseline">
                 <button
                   type="button"
+                  onClick={goToCartPage}
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
                   <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+
+                <span className="h-5 w-5 rounded-3 bg-yellow-200 absolute text-sm">1</span>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -184,7 +211,9 @@ const AppBar = () => {
                           <NavLink
                             to="/"
                             className={classNames(
-                              active ? "bg-gray-100  no-underline" : " no-underline",
+                              active
+                                ? "bg-gray-100  no-underline"
+                                : " no-underline",
                               "block px-4 py-2 text-sm text-gray-700  no-underline"
                             )}
                           >
@@ -194,17 +223,17 @@ const AppBar = () => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <NavLink
-                            to="/"
+                          <p
+                            onClick={signOut}
                             className={classNames(
                               active
-                                ? "bg-gray-100 no-underline"
+                                ? "bg-gray-100 no-underline cursor-pointer"
                                 : "no-underline",
                               "block px-4 py-2 text-sm text-gray-700 no-underline"
                             )}
                           >
                             Sign out
-                          </NavLink>
+                          </p>
                         )}
                       </Menu.Item>
                     </Menu.Items>

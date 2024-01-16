@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ elem }) => {
   const [isLoading, setIsLoading] = useState(false);
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  //   const goToProductsPage = (id) => {
-  //     navigate(`/products/${id}`);
-  //   };
+    const goToProductDetailsPage = (id) => {
+      navigate(`/productDetails/${id}`);
+    };
   useEffect(() => {
     setIsLoading(true);
   }, [elem]);
@@ -24,12 +24,11 @@ const ProductCard = ({ elem }) => {
           sx={{ maxWidth: 400, margin: "5px" }}
           key={elem?.title}
           className="hover:scale-105"
-          //   onClick={() => goToProductsPage(elem?._id)}
+            onClick={() => goToProductDetailsPage(elem?._id)}
         >
           <CardActionArea>
             <CardMedia
               style={{ maxHeight: 500 }}
-              // className="max-h-72"
               component="img"
               height="100%"
               width="100px"

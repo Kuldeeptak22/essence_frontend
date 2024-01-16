@@ -7,11 +7,11 @@ import { BaseURL } from "../../utils/nameSpace";
 import { useNavigate } from "react-router-dom";
 
 const OfferCard = ({ elem }) => {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  //   const goToTvShowDetailsPage = (id) => {
-  //     navigate(`/tvShows/tvShowDetails/${id}`);
-  //   };
+  const goToProductsPage = (id) => {
+    navigate(`/products/${id}`);
+  };
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +25,7 @@ const OfferCard = ({ elem }) => {
         <Card
           sx={{ maxWidth: 400, margin: "5px" }}
           key={elem?.title}
-          // onClick={() => goToTvShowDetailsPage(elem?._id)}
+          onClick={() => goToProductsPage(elem?._id)}
         >
           <CardActionArea>
             <CardMedia

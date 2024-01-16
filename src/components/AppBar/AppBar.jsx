@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -11,7 +11,10 @@ import Logo from "../../essets/images/essence.png";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { NavLink, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems } from "../../redux/addToCart/addToCartAction";
 
 const navigation = [
   { name: "Offers", to: "/offers", current: false },
@@ -86,16 +89,34 @@ const AppBar = () => {
     const token = localStorage.getItem("UserToken");
     if (token) {
       localStorage.removeItem("UserToken");
+      navigate("/signin");
       setTimeout(() => {
         const notify = () =>
           toast.success("Logout Successfully...!!", {
             theme: "dark",
           });
         notify();
-        navigate("/signin");
-      }, 2000);
+      }, 1000);
     }
   };
+  const dispatch = useDispatch();
+
+  const { totalItems } = useSelector((state) => state?.cart);
+ 
+
+  const goToSearchPage = (e) => {
+    if (e.target.value.length > 0) {
+      setTimeout(() => {
+        navigate(`/searchPage/${e.target.value}`);
+      }, 1000);
+    } else {
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, []);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -167,6 +188,7 @@ const AppBar = () => {
                   <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
+                    onChange={(e) => goToSearchPage(e)}
                   />
                 </Search>
               </div>
@@ -180,8 +202,13 @@ const AppBar = () => {
                   <span className="sr-only">View notifications</span>
                   <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-
-                <span className="h-5 w-5 rounded-3 bg-yellow-200 absolute text-sm">1</span>
+                {totalItems ? (
+                  <span className="h-5 w-5 rounded-3 bg-yellow-200 absolute text-sm">
+                    {totalItems}
+                  </span>
+                ) : (
+                  ""
+                )}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -209,7 +236,7 @@ const AppBar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <NavLink
-                            to="/"
+                            to="/myProfile"
                             className={classNames(
                               active
                                 ? "bg-gray-100  no-underline"
@@ -242,6 +269,7 @@ const AppBar = () => {
               </div>
             </div>
           </div>
+          <ToastContainer />
           {/* Mobile Navigatio  */}
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">

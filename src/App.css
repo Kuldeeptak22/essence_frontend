@@ -2,10 +2,17 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sticky-column {
+  position: -webkit-sticky;
+  position: sticky;
+  /* top: 0; */
+  background-color: #f1f1f1;
+  padding: 20px;
 }
+.displayImage:hover{
+  box-shadow: 1px 2px 3px rgb(241, 174, 174);
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

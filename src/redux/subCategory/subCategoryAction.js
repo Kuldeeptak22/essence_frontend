@@ -1,6 +1,5 @@
-import axios from "axios";
+import axiosInstance from "../../instance";
 import { ActionName } from "../../utils/nameSpace";
-import { BaseURL } from "../../utils/nameSpace";
 const {
   GET_SUB_CATEGORIES_PENDING,
   GET_SUB_CATEGORIES_SUCCESS,
@@ -10,8 +9,8 @@ const {
 export const getSubCategories = () => {
   return (dispatch) => {
     dispatch({ type: GET_SUB_CATEGORIES_PENDING });
-    axios
-      .get(`${BaseURL}/subcategories/get_subcategories`)
+    axiosInstance
+      .get(`/subcategories/get_subcategories`)
       .then((res) => {
         dispatch({ type: GET_SUB_CATEGORIES_SUCCESS, payload: res.data });
       })

@@ -29,14 +29,14 @@ const ProductPage = () => {
           subCategoryData
             .filter((a) => a._id === subCatId?.subCatId)
             .map((element) => (
-              <p className="my-3 font-bold text-2xl">{`${element.name} Items`}</p>
+              <p className="my-3 font-bold text-2xl" key={element._id}>{`${element.name} Items`}</p>
             ))}
 
         {ProductData &&
           ProductData.filter(
             (a) => a?.subcategory?._id === subCatId?.subCatId
           ).map((item) => (
-            <Col sm={3} className="my-5">
+            <Col sm={3} className="my-5" key={item._id}>
               <ProductCard elem={item} />
             </Col>
           ))}
@@ -46,3 +46,4 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+

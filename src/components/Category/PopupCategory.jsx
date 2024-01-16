@@ -37,8 +37,8 @@ const PopupCategory = ({ category, clickedCategory }) => {
               subCategoryData
                 .filter((a) => a.category.name === clickedCategory)
                 .map((item) => (
-                  <span onClick={() => goToProductsPage(item._id)}>
-                    <MenuItem key={item._id} onClick={popupState.close}>
+                  <span key={item._id} onClick={() => goToProductsPage(item._id)}>
+                    <MenuItem onClick={popupState.close}>
                       {item.name}
                     </MenuItem>
                   </span>

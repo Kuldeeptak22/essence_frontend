@@ -30,7 +30,7 @@ const HomePage = () => {
       </Row>
       <Row className="g-0">
         {categoryData &&
-          categoryData.map((item) => <CommonSlider categoryName={item.name} />)}
+          categoryData.map((item) => <CommonSlider categoryName={item.name} key={item._id} />)}
       </Row>
     </Container>
   );

@@ -24,7 +24,7 @@ const OffersPage = () => {
       </Row>
       <Row className="g-0">
         {categoryData &&
-          categoryData?.map((item) => <CommonSlider categoryName={item?.name} topic={topic}/>)}
+          categoryData?.map((item) => <CommonSlider categoryName={item?.name} topic={topic} key={item._id}/>)}
       </Row>
       <Row className="g-0">
         <Col>

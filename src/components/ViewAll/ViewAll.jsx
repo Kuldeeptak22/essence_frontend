@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -28,8 +28,8 @@ const ViewAll = () => {
           subCategoryData
             .filter((a) => a.category.name === categoryName?.categoryName)
             .map((item) => (
-              <Col>
-                <CommonCard elem={item} key={item._id} />
+              <Col xs={6} sm={4} md={3} lg={2} key={item._id}>
+                <CommonCard elem={item} />
               </Col>
             ))}
       </Row>

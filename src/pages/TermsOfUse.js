@@ -28,7 +28,7 @@ const TermsOfUse = () => {
         <Col className="py-3">
           <p className="font-bold text-2xl my-3 text-left">Terms Of Use</p>
 
-          {data && data.map((item) => <p className="text-left">{item.para}</p>)}
+          {data && data.map((item) => <p className="text-left" key={item.para}>{item.para}</p>)}
         </Col>
       </Row>
     </Container>

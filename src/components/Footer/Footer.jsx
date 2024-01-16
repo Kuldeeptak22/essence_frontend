@@ -25,7 +25,7 @@ const Footer = () => {
                   to: "/about",
                 },
               ].map((item) => (
-                <NavLink className="nav-link" to={item.to}>
+                <NavLink className="nav-link" to={item.to} key={item.name}>
                   <span className="text-[0.8rem]">{item.name}</span>
                 </NavLink>
               ))}
@@ -53,7 +53,7 @@ const Footer = () => {
                   to: "/cancellation",
                 },
               ].map((item) => (
-                <NavLink className="nav-link" to={item.to}>
+                <NavLink className="nav-link" to={item.to} key={item.name}>
                   <span className="text-[0.8rem]">{item.name}</span>
                 </NavLink>
               ))}
@@ -74,7 +74,7 @@ const Footer = () => {
                   to: "/privacy",
                 },
               ].map((item) => (
-                <NavLink className="nav-link" to={item.to}>
+                <NavLink className="nav-link" to={item.to} key={item.name}>
                   <span className="text-[0.8rem]">{item.name}</span>
                 </NavLink>
               ))}
@@ -95,7 +95,7 @@ const Footer = () => {
                   to: "https://www.youtube.com/flipkart",
                 },
               ].map((item) => (
-                <a className="no-underline text-white" href={item.to} target="blank">
+                <a className="no-underline text-white" href={item.to} target="blank" key={item.name}>
                   <span className="text-[0.8rem] block">{item.name}</span>
                 </a>
               ))}
@@ -114,7 +114,7 @@ const Footer = () => {
                 " Bengaluru, 560103,",
                 " Karnataka, India",
               ].map((item) => (
-                <span className="text-[0.8rem] block">{item}</span>
+                <span className="text-[0.8rem] block" key={item}>{item}</span>
               ))}
             </Col>
             <Col className="text-left">
@@ -128,9 +128,9 @@ const Footer = () => {
                 " Outer Ring Road, Devarabeesanahalli Village,",
                 " Bengaluru, 560103,",
                 " Karnataka, India",
-                "  CIN : U51109KA2012PTC066107 ",
+                " CIN : U51109KA2012PTC066107 ",
               ].map((item) => (
-                <span className="text-[0.8rem] block">{item}</span>
+                <span className="text-[0.8rem] block" key={item}>{item}</span>
               ))}
               <span className="text-[0.8rem] block">
                 Telephone:{" "}
@@ -162,7 +162,7 @@ const Footer = () => {
             icon: <HelpIcon />,
           },
         ].map((item) => (
-          <Col sm={2} className="text-[0.8rem] flex items-center my-2 sm:my-0">
+          <Col sm={2} className="text-[0.8rem] flex items-center my-2 sm:my-0" key={item.tagName}>
             <span className="px-2 text-yellow-300">{item.icon}</span>
             <span>{item.tagName}</span>
           </Col>

@@ -39,10 +39,10 @@ const CancellationPage = () => {
           <div className="text-[0.8rem] lg:text-[1rem]">
             {data &&
               data.map((item) => (
-                <>
+                <div key={item.question}>
                   <p className="font-bold text-left">{item.question}</p>
                   <p className="text-left">{item.answer}</p>
-                </>
+                </div>
               ))}
           </div>
         </Col>

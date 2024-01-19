@@ -21,15 +21,18 @@ const CommonCard = ({ elem }) => {
     <>
       {isLoading ? (
         <Card
-          sx={{ maxWidth: 400, margin: "5px" }}
+          sx={{
+            maxWidth: 400,
+            margin: "5px",
+            height: "100%",
+          }}
           key={elem?.title}
           className="hover:scale-105"
           onClick={() => goToProductsPage(elem?._id)}
         >
           <CardActionArea>
             <CardMedia
-              style={{ maxHeight: 230 }}
-              // className="max-h-72"
+              style={{ height: 230, padding: "20px" }}
               component="img"
               height="100%"
               width="100px"

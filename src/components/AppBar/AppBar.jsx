@@ -80,7 +80,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AppBar = () => {
+const AppBar = ({ totalItems }) => {
   const navigate = useNavigate();
   const goToCartPage = () => {
     navigate("/cart");
@@ -99,10 +99,6 @@ const AppBar = () => {
       }, 1000);
     }
   };
-  const dispatch = useDispatch();
-
-  const { totalItems } = useSelector((state) => state?.cart);
- 
 
   const goToSearchPage = (e) => {
     if (e.target.value.length > 0) {
@@ -113,10 +109,6 @@ const AppBar = () => {
       navigate("/");
     }
   };
-
-  useEffect(() => {
-    dispatch(getCartItems());
-  }, []);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -133,7 +125,6 @@ const AppBar = () => {
                 >
                   91-9664408473
                 </a>
-                {/* <span className="text-yellow-300"> +91-9664408473</span>{" "} */}
               </div>
             </div>
             <div className="relative flex h-28 lg:h-16 justify-between mt-2">

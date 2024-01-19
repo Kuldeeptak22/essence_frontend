@@ -80,9 +80,6 @@ const LoginForm = () => {
                   "UserToken",
                   JSON.stringify(res.data.token)
                 );
-                // setToken(JSON.stringify(res.data.token));
-                // setUser(res.data.data);
-                // localStorage.setItem("User", JSON.stringify(res.data.data));
                 notify();
                 setTimeout(() => {
                   navigate("/");

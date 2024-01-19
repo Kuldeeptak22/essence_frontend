@@ -23,13 +23,13 @@ const OfferCard = ({ elem }) => {
     <>
       {isLoading ? (
         <Card
-          sx={{ maxWidth: 400, margin: "5px" }}
+          sx={{ maxWidth: 400, margin: "5px", height: "100%" }}
           key={elem?.title}
           onClick={() => goToProductsPage(elem?._id)}
         >
           <CardActionArea>
             <CardMedia
-              style={{ maxHeight: 440 }}
+              style={{ height: 230, padding: "20px" }}
               component="img"
               height="100%"
               width="100px"

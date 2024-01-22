@@ -55,6 +55,7 @@ const ProductDetails = () => {
                           src={`${BaseURL}/uploads/products/${elem}`}
                           alt={elem}
                           onMouseOver={() => changeDisplayImage(elem)}
+                          key={elem}
                         />
                       ))}
                   </Col>

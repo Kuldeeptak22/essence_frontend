@@ -43,6 +43,7 @@ const style = {
 const MyProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isDesSubmitting, setIsDesSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -185,6 +186,7 @@ const MyProfile = () => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
+              setIsDesSubmitting(true);
               if (!userDetail) {
                 setSubmitting(false);
                 return;
@@ -210,15 +212,19 @@ const MyProfile = () => {
                     await axios
                       .get(`${BaseURL}/users/get_user/${userDetail._id}`)
                       .then((res) => {
-                        const UserDetails = JSON.parse(
-                          localStorage.getItem("User")
-                        );
-                        if (UserDetails._id === userDetail._id) {
+                        const UserEmail = localStorage.getItem("UserEmail");
+                        if (UserEmail === userDetail.email) {
+                          let detail = {};
+                          detail = {
+                            firstName: res.data.data.firstName,
+                            avatar: res.data.data.avatar,
+                          };
+                          
                           localStorage.setItem(
-                            "User",
-                            JSON.stringify(res.data.data)
+                            "UserData",
+                            JSON.stringify(detail)
                           );
-                          const event = new Event("employeeUpdated");
+                          const event = new Event("userUpdated");
                           window.dispatchEvent(event);
                         }
                         navigate("/");
@@ -228,7 +234,6 @@ const MyProfile = () => {
                       const notify = () => toast.success(res.data.message);
                       notify();
                       handleClose();
-                      localStorage.getItem();
                     }
                   })
                   .catch((error) => {
@@ -240,6 +245,9 @@ const MyProfile = () => {
                       notify();
                       handleClose();
                     }
+                  })
+                  .finally(() => {
+                    setIsDesSubmitting(false);
                   });
                 setSubmitting(false);
               }, 400);
@@ -356,7 +364,7 @@ const MyProfile = () => {
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
-                        {imgData !== null && (
+                        {imgData !== null && values.avatar instanceof File && (
                           <img
                             id="previewImage"
                             src={URL.createObjectURL(values.avatar)}
@@ -378,9 +386,9 @@ const MyProfile = () => {
                     type="submit"
                     variant="contained"
                     disabled={isSubmitting}
-                    className={`${isSubmitting}? bg-gray-400 back mb-3`}
+                    className={`${isDesSubmitting ? "bg-gray-400 back mb-3" : "my-3"}`}
                   >
-                    Submit
+                    {isDesSubmitting ? "Updating..." : "Update"}
                   </Button>
                 </Stack>
                 <ToastContainer />

@@ -12,7 +12,6 @@ export const getSearchItems = (data) => {
     axiosInstance
       .get(`/products/get_products?search=${data}`)
       .then((res) => {
-        console.log("response", res.data);
         dispatch({ type: GET_SEARCH_ITEMS_SUCCESS, payload: res.data });
       })
       .catch((err) => {

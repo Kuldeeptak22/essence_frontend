@@ -374,7 +374,6 @@ const MyProfile = () => {
                       </p>
                     </div>
                   </div>
-                  {console.log("isSubmitting", isSubmitting)}
                   <Button
                     type="submit"
                     variant="contained"

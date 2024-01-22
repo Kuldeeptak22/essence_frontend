@@ -16,7 +16,6 @@ const PopupCategory = ({ category, clickedCategory }) => {
   }, []);
 
   const goToProductsPage = (id) => {
-    console.log("iddddd", id);
     navigate(`/products/${id}`);
   };
 

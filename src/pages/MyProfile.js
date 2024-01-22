@@ -11,16 +11,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { BaseURL } from "../utils/nameSpace";
 import { Formik } from "formik";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserByEmail } from "../redux/userAuth/userAuthAction";
 
 const style = {
   position: "absolute",
@@ -38,29 +41,20 @@ const style = {
   padding: "0px 40px",
 };
 const MyProfile = () => {
-  const user = {
-    _id: "653b9498d7e907f1e1a38f3e",
-    firstName: "Kuldeep",
-    lastName: "Tak",
-    email: "kuldeeptak2211@gmail.com",
-    password: "$2b$10$kn7EWfEI88uioGLt3GtIwOpmW41zQUpConwl5DCYYZAHtiYgcJ0Ve",
-    contact: 9664408470,
-    dob: "2023-11-22",
-    gender: "male",
-    about: "FullStack Developer",
-    avatar: "user1_1698403522733.jpg",
-    status: 1,
-    createdAt: "2023-10-27T10:01:16.839Z",
-    __v: 0,
-  };
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
   const [imgData, setImgData] = useState(null);
+
+  const userDetail = useSelector((state) => state?.userData.user);
+  useEffect(() => {
+    const userEmail = localStorage.getItem("UserEmail");
+    dispatch(getUserByEmail(userEmail));
+  }, [dispatch]);
 
   // image show function
   const handleFileChange = (event, setFieldValue) => {
@@ -70,6 +64,10 @@ const MyProfile = () => {
       const selectedFile = fileInput.files[0];
       setImgData(URL.createObjectURL(selectedFile));
       setFieldValue("avatar", selectedFile);
+    } else {
+      // Handle the case when no file is selected
+      setImgData(null);
+      setFieldValue("avatar", null);
     }
   };
 
@@ -86,8 +84,8 @@ const MyProfile = () => {
         <Row className="flex items-center justify-center">
           <Col lg={8} className="flex items-end justify-center">
             <Avatar
-              alt={user?.firstName}
-              src={`${BaseURL}/uploads/users/${user?.avatar}`}
+              alt={userDetail?.firstName}
+              src={`${BaseURL}/uploads/users/${userDetail?.avatar}`}
               sx={{
                 width: 250,
                 height: 250,
@@ -96,27 +94,31 @@ const MyProfile = () => {
             />
           </Col>
           <Col lg={4} className="my-2">
-            <div className="text-yellow-300 text-4xl fw-bold my-3">{`${user?.firstName} ${user?.lastName}`}</div>
+            <div className="text-yellow-300 text-4xl fw-bold my-3">{`${userDetail?.firstName} ${userDetail?.lastName}`}</div>
             <div className="text-2xl my-3">
               <span className="text-yellow-300 mr-3">
                 <EmailIcon />
               </span>
-              <span className="text-gray-200 text-break">{user?.email}</span>
+              <span className="text-gray-200 text-break">
+                {userDetail?.email}
+              </span>
             </div>
             <div className="text-yellow-300 text-2xl my-3">
               <span className="text-yellow-300 mr-3">
                 <AccountCircleIcon />
               </span>
-              <span className="text-gray-200">{user?.gender}</span>
+              <span className="text-gray-200">{userDetail?.gender}</span>
             </div>
             <div className="text-yellow-300 text-2xl my-3">
               <span className="text-yellow-300 mr-3">
                 <PhoneIcon />
               </span>
-              <span className="text-gray-200 text-break">{user?.contact}</span>
+              <span className="text-gray-200 text-break">
+                {userDetail?.contact}
+              </span>
             </div>
           </Col>
-          <hr  className="text-white mt-5"/>
+          <hr className="text-white mt-5" />
         </Row>
       </Container>
       {/* ===========EDIT PROFILE MODAL ==============  */}
@@ -139,12 +141,12 @@ const MyProfile = () => {
           <Formik
             enableReinitialize
             initialValues={{
-              firstName: user?.firstName,
-              lastName: user?.lastName,
-              email: user?.email,
-              gender: user?.gender,
-              contact: user?.contact,
-              avatar: user?.avatar,
+              firstName: userDetail?.firstName,
+              lastName: userDetail?.lastName,
+              email: userDetail?.email,
+              gender: userDetail?.gender,
+              contact: userDetail?.contact,
+              avatar: userDetail?.avatar,
             }}
             validate={(values) => {
               const errors = {};
@@ -183,7 +185,7 @@ const MyProfile = () => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              if (!user) {
+              if (!userDetail) {
                 setSubmitting(false);
                 return;
               }
@@ -200,15 +202,18 @@ const MyProfile = () => {
 
               setTimeout(() => {
                 axios
-                  .put(`${BaseURL}/users/update_user/${user._id}`, formData)
+                  .put(
+                    `${BaseURL}/users/update_user/${userDetail._id}`,
+                    formData
+                  )
                   .then(async (res) => {
                     await axios
-                      .get(`${BaseURL}/users/get_user/${user._id}`)
+                      .get(`${BaseURL}/users/get_user/${userDetail._id}`)
                       .then((res) => {
                         const UserDetails = JSON.parse(
                           localStorage.getItem("User")
                         );
-                        if (UserDetails._id === user._id) {
+                        if (UserDetails._id === userDetail._id) {
                           localStorage.setItem(
                             "User",
                             JSON.stringify(res.data.data)
@@ -346,15 +351,12 @@ const MyProfile = () => {
                             type="file"
                             className="sr-only"
                             name="avatar"
-                            // onChange={(e) => {
-                            //   setFieldValue("avatar", e.target.files[0]);
-                            // }}
                             onChange={(e) => handleFileChange(e, setFieldValue)}
                             onBlur={handleBlur}
                           />
                         </label>
                         <p className="pl-1">or drag and drop</p>
-                        {imgData && (
+                        {imgData !== null && (
                           <img
                             id="previewImage"
                             src={URL.createObjectURL(values.avatar)}
@@ -372,16 +374,17 @@ const MyProfile = () => {
                       </p>
                     </div>
                   </div>
-
+                  {console.log("isSubmitting", isSubmitting)}
                   <Button
                     type="submit"
                     variant="contained"
                     disabled={isSubmitting}
-                    className="mb-3"
+                    className={`${isSubmitting}? bg-gray-400 back mb-3`}
                   >
                     Submit
                   </Button>
                 </Stack>
+                <ToastContainer />
               </form>
             )}
           </Formik>

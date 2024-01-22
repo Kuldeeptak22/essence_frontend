@@ -11,19 +11,23 @@ axiosInstance.interceptors.request.use(
     const token = localStorage.getItem("UserToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token.replace(/"/g, "")}`;
+      config.headers["Content-Type"] = "application/json";
     }
     return config;
   },
-  function (error) {
+ (error)=> {
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
-  function (response) {
+  (response)=> {
     return response;
   },
-  function (error) {
+ (error)=> {
+  if(error.response.status === 401){
+    localStorage.removeItem("UserToken"); 
+  }
     return Promise.reject(error);
   }
 );

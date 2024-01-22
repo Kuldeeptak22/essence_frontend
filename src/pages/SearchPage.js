@@ -20,7 +20,7 @@ const SearchPage = () => {
     }
     dispatch(getSearchItems(data.search));
     setIsLoading(false);
-  }, [data.search]);
+  }, [data.search, dispatch, navigate]);
 
   return (
     <Container>

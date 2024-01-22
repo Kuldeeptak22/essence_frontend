@@ -14,7 +14,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartItems } from "../../redux/addToCart/addToCartAction";
+import { getCartTotalItems } from "../../redux/addToCart/addToCartAction";
+import { BaseURL } from "../../utils/nameSpace";
+import USER from "../../essets/images/userImage.jpg";
+import { getUserByEmail } from "../../redux/userAuth/userAuthAction";
 
 const navigation = [
   { name: "Offers", to: "/offers", current: false },
@@ -80,15 +83,41 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AppBar = ({ totalItems }) => {
+const AppBar = () => {
+  const dispatch = useDispatch();
+  const { totalItems } = useSelector((state) => state?.cart);
+  // const userDetail = useSelector((state) => state?.userData.user);
+  const { success } = useSelector((state) => state?.cart);
+
+  useEffect(() => {
+    if (success) {
+      dispatch(getCartTotalItems());
+    }
+  }, [success, dispatch]);
+
+  useEffect(() => {
+    dispatch(getCartTotalItems());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("UserEmail");
+    dispatch(getUserByEmail(userEmail));
+  }, [dispatch]);
+
+  const userDetail = JSON.parse(localStorage.getItem("UserData"));
+
   const navigate = useNavigate();
   const goToCartPage = () => {
     navigate("/cart");
   };
   const signOut = () => {
     const token = localStorage.getItem("UserToken");
-    if (token) {
+    const UserEmail = localStorage.getItem("UserEmail");
+    const UserData = localStorage.getItem("UserData");
+    if (token && UserEmail && UserData) {
       localStorage.removeItem("UserToken");
+      localStorage.removeItem("UserEmail");
+      localStorage.removeItem("UserData");
       navigate("/signin");
       setTimeout(() => {
         const notify = () =>
@@ -209,9 +238,14 @@ const AppBar = ({ totalItems }) => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
+                        src={
+                          userDetail?.avatar
+                            ? `${BaseURL}/uploads/users/${userDetail?.avatar}`
+                            : USER
+                        }
+                        alt={userDetail?.firstName}
                       />
+                      )
                     </Menu.Button>
                   </div>
                   <Transition

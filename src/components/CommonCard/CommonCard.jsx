@@ -32,7 +32,7 @@ const CommonCard = ({ elem }) => {
         >
           <CardActionArea>
             <CardMedia
-              style={{ height: 230, padding: "20px" }}
+              style={{ height: 220, padding: "20px" }}
               component="img"
               height="100%"
               width="100px"

@@ -15,20 +15,20 @@ const ViewAll = () => {
 
   useEffect(() => {
     dispatch(getSubCategories());
-  }, [categoryName]);
+  }, [categoryName,dispatch]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   });
   return (
-    <Container>
-      <Row>
+    <Container fluid>
+      <Row className="flex items-center justify-center">
         <p className="my-4 font-bold text-2xl">{`${categoryName?.categoryName} Items`}</p>
         {subCategoryData &&
           subCategoryData
             .filter((a) => a.category.name === categoryName?.categoryName)
             .map((item) => (
-              <Col xs={6} sm={4} md={3} lg={2} key={item._id}>
+              <Col sm={4} md={3} lg={2} key={item._id} className="m-1">
                 <CommonCard elem={item} />
               </Col>
             ))}

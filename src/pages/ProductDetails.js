@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProducts } from "../redux/products/poductAction";
 import { BaseURL } from "../utils/nameSpace";
@@ -9,22 +10,19 @@ import StarIcon from "@mui/icons-material/Star";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AssignmentReturnIcon from "@mui/icons-material/AssignmentReturn";
 import { Button } from "@mui/material";
-import { addCartItems, getCartItems } from "../redux/addToCart/addToCartAction";
+import { addCartItems} from "../redux/addToCart/addToCartAction";
 
 const ProductDetails = () => {
   const productId = useParams();
   const navigate = useNavigate();
-  console.log("productId", productId?.productId);
-  const [isLoading, setIsLoading] = useState(true);
   const [displayImage, setDisplayImage] = useState(null);
   const [disable, setDisableButton] = useState(null);
   const dispatch = useDispatch();
 
   const ProductData = useSelector((state) => state?.product?.products);
   useEffect(() => {
-    setIsLoading(false);
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   const changeDisplayImage = (elem) => {
     setDisplayImage(elem);
@@ -33,7 +31,7 @@ const ProductDetails = () => {
   const addToCart = (id, data) => {
     const token = localStorage.getItem("UserToken");
     if (token) {
-      dispatch(addCartItems(id,token));
+      dispatch(addCartItems(id, token));
       setDisableButton(data);
     } else {
       navigate("/signin");
@@ -168,6 +166,7 @@ const ProductDetails = () => {
                   </Col>
                 </Row>
               </Col>
+              <ToastContainer />
             </Row>
           )
         )}

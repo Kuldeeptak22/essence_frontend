@@ -58,17 +58,6 @@ const Carousel = () => {
       className="d-flex justify-center flex-col align-middle items-center g-0"
     >
       <Row className="w-[100%] p-0">
-        {/* {isLoading && (
-          <div className="d-flex">
-            <Skeleton
-              variant="rectangle"
-              animation="wave"
-              height={220}
-              width={400}
-            />
-          </div>
-        )} */}
-
         <Slider {...settings} style={{padding:0}}>
           <div className="caraoselSlider imagesSlides1"></div>
           <div className="caraoselSlider imagesSlides2"></div>

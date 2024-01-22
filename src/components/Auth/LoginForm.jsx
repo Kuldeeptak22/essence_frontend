@@ -71,6 +71,7 @@ const LoginForm = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
+          localStorage.setItem("UserEmail", values.email);
           setTimeout(() => {
             axios
               .post(`${BaseURL}/users/sign_in`, values)
@@ -80,6 +81,10 @@ const LoginForm = () => {
                   "UserToken",
                   JSON.stringify(res.data.token)
                 );
+                let userData = {};
+                userData.firstName = res.data.data.firstName;
+                userData.avatar = res.data.data.avatar;
+                localStorage.setItem("UserData", JSON.stringify(userData));
                 notify();
                 setTimeout(() => {
                   navigate("/");

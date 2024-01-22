@@ -1,19 +1,19 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { getSubCategories } from "../../redux/subCategory/subCategoryAction";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PopupCategory = ({ category, clickedCategory }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getSubCategories());
-  }, []);
+  }, [dispatch]);
 
   const goToProductsPage = (id) => {
     navigate(`/products/${id}`);

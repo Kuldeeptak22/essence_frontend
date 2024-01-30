@@ -29,7 +29,8 @@ const subCategoryReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        subCategories: action.payload,
+        error: action.payload,
+        subCategories: [],
       };
     default:
       return state;

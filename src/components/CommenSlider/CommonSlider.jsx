@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Container, Row } from "react-bootstrap";
-import { Skeleton } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import CommonCard from "../CommonCard/CommonCard";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import OfferCard from "../OfferCard/OfferCard";
-import { getSubCategories } from "../../redux/subCategory/subCategoryAction";
 import { NavLink } from "react-router-dom";
 
-const CommonSlider = ({ categoryName, topic }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const dispatch = useDispatch();
-
-  const subCategoryData = useSelector(
-    (state) => state?.subCategory?.subCategories?.data
-  );
-
-  useEffect(() => {
-    setIsLoading(false);
-    dispatch(getSubCategories());
-  }, []);
-
+const CommonSlider = ({ categoryName, topic, subCategoryData }) => {
   const settings = {
     // dots: true,
     infinite: true,
@@ -90,18 +75,6 @@ const CommonSlider = ({ categoryName, topic }) => {
             </span>
           </div>
         </div>
-
-        {isLoading && (
-          <div className="d-flex">
-            <Skeleton
-              variant="rectangle"
-              animation="wave"
-              height={220}
-              width={400}
-            />
-          </div>
-        )}
-
         <Slider {...settings} className="py-2">
           {subCategoryData &&
             subCategoryData

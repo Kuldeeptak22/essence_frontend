@@ -86,7 +86,6 @@ function classNames(...classes) {
 const AppBar = () => {
   const dispatch = useDispatch();
   const { totalItems } = useSelector((state) => state?.cart);
-  // const userDetail = useSelector((state) => state?.userData.user);
   const { success } = useSelector((state) => state?.cart);
 
   useEffect(() => {
@@ -114,7 +113,7 @@ const AppBar = () => {
     const token = localStorage.getItem("UserToken");
     const UserEmail = localStorage.getItem("UserEmail");
     const UserData = localStorage.getItem("UserData");
-    if (token && UserEmail && UserData) {
+    if (token || UserEmail || UserData) {
       localStorage.removeItem("UserToken");
       localStorage.removeItem("UserEmail");
       localStorage.removeItem("UserData");

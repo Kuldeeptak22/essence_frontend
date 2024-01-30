@@ -18,7 +18,7 @@ const ProductPage = () => {
   useEffect(() => {
     dispatch(getProducts());
     dispatch(getSubCategories());
-  }, []);
+  }, [dispatch]);
   useEffect(() => {
     window.scrollTo(0, 0);
   });

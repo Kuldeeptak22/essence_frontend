@@ -3,6 +3,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useDispatch } from "react-redux";
 import { addContact } from "../redux/contact/contactAction";
 
@@ -11,10 +13,14 @@ const ContactPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <Container>
       <Row>
-        <Col className="py-3 text-left" sm={6}>
+        <Col className="py-3 text-left" sm={6} data-aos="zoom-in">
           <p className="text-left font-bold text-2xl">Contact Page</p>
           <p className="px-1">
             The Essence Help Centre page lists out various types of issues that
@@ -38,7 +44,7 @@ const ContactPage = () => {
             updated on 11-Jan-24
           </p>
         </Col>
-        <Col className="my-3 py-3 bg-gray-300 text-left" sm={6}>
+        <Col className="my-3 py-3 bg-gray-300 text-left" sm={6} data-aos="zoom-in">
           <Formik
             initialValues={{ email: "", message: "" }}
             validate={(values) => {

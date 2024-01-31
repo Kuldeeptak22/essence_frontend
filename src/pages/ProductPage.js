@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -22,6 +24,10 @@ const ProductPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <Container>
       <Row>
@@ -29,14 +35,14 @@ const ProductPage = () => {
           subCategoryData
             .filter((a) => a._id === subCatId?.subCatId)
             .map((element) => (
-              <p className="my-3 font-bold text-2xl" key={element._id}>{`${element.name} Items`}</p>
+              <p className="my-3 font-bold text-2xl" key={element._id} data-aos="fade-left">{`${element.name} Items`}</p>
             ))}
 
         {ProductData &&
           ProductData.filter(
             (a) => a?.subcategory?._id === subCatId?.subCatId
           ).map((item) => (
-            <Col sm={3} className="my-5" key={item._id}>
+            <Col sm={3} className="my-5" key={item._id} data-aos="zoom-in">
               <ProductCard elem={item} />
             </Col>
           ))}

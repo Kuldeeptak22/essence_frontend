@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const data = [
   {
@@ -22,13 +24,17 @@ const TermsOfUse = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <Container>
       <Row>
         <Col className="py-3">
-          <p className="font-bold text-2xl my-3 text-left">Terms Of Use</p>
+          <p className="font-bold text-2xl my-3 text-left"  data-aos="zoom-in">Terms Of Use</p>
 
-          {data && data.map((item) => <p className="text-left" key={item.para}>{item.para}</p>)}
+          {data && data.map((item) => <p className="text-left" key={item.para}  data-aos="zoom-in">{item.para}</p>)}
         </Col>
       </Row>
     </Container>

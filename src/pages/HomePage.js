@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import CategoryBar from "../components/Category/CategoryBar";
 import Carousel from "../components/Carousel/Carousel";
 import CommonSlider from "../components/CommenSlider/CommonSlider";
@@ -15,6 +17,11 @@ const HomePage = () => {
     dispatch(getSubCategories());
   }, [dispatch]);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   const categoryData = useSelector(
     (state) => state?.category?.categories?.data
   );
@@ -29,7 +36,7 @@ const HomePage = () => {
         </Col>
       </Row>
       <Row className="g-0">
-        <Col>
+        <Col data-aos="zoom-in">
           <Carousel />
         </Col>
       </Row>

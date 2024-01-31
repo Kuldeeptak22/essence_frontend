@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProducts } from "../redux/products/poductAction";
 import { BaseURL } from "../utils/nameSpace";
@@ -18,6 +20,11 @@ const ProductDetails = () => {
   const [displayImage, setDisplayImage] = useState(null);
   const [disable, setDisableButton] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   const ProductData = useSelector((state) => state?.product?.products);
   useEffect(() => {
@@ -46,7 +53,7 @@ const ProductDetails = () => {
             <Row className="my-4" key={item._id}>
               <Col sm={5} className="sticky-column">
                 <Row>
-                  <Col>
+                  <Col  data-aos="zoom-in">
                     {item.images &&
                       item.images.map((elem) => (
                         <img

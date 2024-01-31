@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const data = [
   {
@@ -26,20 +28,30 @@ const data = [
 ];
 
 const PaymentPage = () => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-      });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <Container>
       <Row className="py-6 flex items-center">
         <Col>
-          <div className="text-left font-bold text-2xl my-2">Payments</div>
+          <div className="text-left font-bold text-2xl my-2" data-aos="zoom-in">
+            Payments
+          </div>
           <div className="text-[0.8rem] lg:text-[1rem]">
             {data &&
               data.map((item) => (
                 <div key={item.question}>
-                  <p className="font-bold text-left">{item.question}</p>
-                  <p className="text-left">{item.answer}</p>
+                  <p className="font-bold text-left" data-aos="fade-right">
+                    {item.question}
+                  </p>
+                  <p className="text-left" data-aos="fade-left">
+                    {item.answer}
+                  </p>
                 </div>
               ))}
           </div>

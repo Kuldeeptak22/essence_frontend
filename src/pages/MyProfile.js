@@ -21,6 +21,8 @@ import { Formik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserByEmail } from "../redux/userAuth/userAuthAction";
@@ -57,6 +59,11 @@ const MyProfile = () => {
     dispatch(getUserByEmail(userEmail));
   }, [dispatch]);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   // image show function
   const handleFileChange = (event, setFieldValue) => {
     const fileInput = event.target;
@@ -83,7 +90,7 @@ const MyProfile = () => {
           </Col>
         </Row>
         <Row className="flex items-center justify-center">
-          <Col lg={8} className="flex items-end justify-center">
+          <Col lg={8} className="flex items-end justify-center" data-aos="zoom-in">
             <Avatar
               alt={userDetail?.firstName}
               src={`${BaseURL}/uploads/users/${userDetail?.avatar}`}
@@ -94,7 +101,7 @@ const MyProfile = () => {
               className="img-fluid"
             />
           </Col>
-          <Col lg={4} className="my-2">
+          <Col lg={4} className="my-2" data-aos="zoom-in">
             <div className="text-yellow-300 text-4xl fw-bold my-3">{`${userDetail?.firstName} ${userDetail?.lastName}`}</div>
             <div className="text-2xl my-3">
               <span className="text-yellow-300 mr-3">

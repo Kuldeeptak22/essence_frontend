@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import CEO from "../essets/images/kalyan.png";
 
 const AboutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <Container>
       <Row className="py-6 flex items-center">
         <Col sm={6}>
-          <p className="text-left font-bold text-2xl">About Us</p>
-          <p className="text-[0.8rem] lg:text-[1rem] text-left" >
+          <p className="text-left font-bold text-2xl" data-aos="zoom-in">About Us</p>
+          <p className="text-[0.8rem] lg:text-[1rem] text-left" data-aos="zoom-in">
             The Essence Group is one of India’s leading digital commerce
             entities and includes group companies Essence, Myntra, Essence
             Wholesale, Essence Health+, and Cleartrip. Started in 2007, Essence
@@ -30,7 +36,7 @@ const AboutPage = () => {
             Indians.
           </p>
         </Col>
-        <Col sm={6}>
+        <Col sm={6} data-aos="zoom-in">
           <img src={CEO} alt="CEO" className="rounded" loading="eager"/>
         </Col>
       </Row>

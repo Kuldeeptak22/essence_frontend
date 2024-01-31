@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   decrementQuantity,
   getCartItems,
@@ -30,6 +32,11 @@ const CartPage = () => {
       dispatch(removeCartItem());
     }
   }, [success, dispatch]);
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   const handleIncrement = (id) => {
     dispatch(incrementQuantity(id));
@@ -67,7 +74,7 @@ const CartPage = () => {
               Please login first to view your cart.😀
             </div>
             <div className="my-4">
-              Go To Login Page{" "}
+              Go To Login Page
               <Button variant="contained" onClick={goToLoginPage}>
                 Login
               </Button>
@@ -93,7 +100,7 @@ const CartPage = () => {
           cartItems.map((item) => {
             const { _id, thumbnail, name, quantity, price } = item;
             return (
-              <Col sm={12} className="bg-red-300 relative my-3" key={_id}>
+              <Col sm={12} className="bg-red-300 relative my-3" key={_id} data-aos="zoom-in">
                 <div className="absolute right-1 top-1">
                   <button
                     className="hover:bg-slate-50"

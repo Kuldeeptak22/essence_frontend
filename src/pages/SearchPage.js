@@ -1,5 +1,7 @@
 import { Container, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard/ProductCard";
@@ -11,6 +13,11 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   const searchData = useSelector((state) => state?.search?.searchItems?.data);
 
@@ -25,7 +32,7 @@ const SearchPage = () => {
   return (
     <Container>
       <Row>
-        <p className="fs-2 pt-5 pb-3">Result</p>
+        <p className="fs-2 pt-5 pb-3 font-bold" data-aos="zoom-in">Result</p>
         {isLoading && (
           <div className="d-flex">
             <Skeleton
@@ -38,7 +45,7 @@ const SearchPage = () => {
         )}
         {searchData &&
           searchData.map((elem) => (
-            <Col sm={3} key={elem._id}>
+            <Col sm={3} key={elem._id} data-aos="zoom-in">
               <ProductCard elem={elem} />
             </Col>
           ))}

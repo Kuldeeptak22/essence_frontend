@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../redux/categoryBar/categoryActions";
 import CommonSlider from "../components/CommenSlider/CommonSlider";
@@ -14,6 +16,11 @@ const OffersPage = () => {
     dispatch(getSubCategories());
   }, [dispatch]);
 
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   const categoryData = useSelector(
     (state) => state?.category?.categories?.data
   );
@@ -24,9 +31,9 @@ const OffersPage = () => {
   return (
     <Container fluid>
       <Row>
-        <Col className="font-bold text-2xl my-3"> Exciting Offers</Col>
+        <Col className="font-bold text-2xl my-3" data-aos="zoom-in"> Exciting Offers</Col>
       </Row>
-      <Row className="g-0">
+      <Row className="">
         {categoryData &&
           categoryData?.map((item) => (
             <CommonSlider
@@ -37,8 +44,8 @@ const OffersPage = () => {
             />
           ))}
       </Row>
-      <Row className="g-0">
-        <Col>
+      <Row className="">
+        <Col data-aos="zoom-in">
           <Carousel />
         </Col>
       </Row>

@@ -27,7 +27,7 @@ const CartPage = () => {
     if (success) {
       dispatch(getCartItems());
       dispatch(getCartTotalAmount());
-      // dispatch(removeCartItem());
+      dispatch(removeCartItem());
     }
   }, [success, dispatch]);
 

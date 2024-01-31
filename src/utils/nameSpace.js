@@ -40,4 +40,4 @@ export const ActionName = {
   GET_USER_BY_EMAIL_FAILED: "GET_USER_BY_EMAIL_FAILED",
 };
 
-export const BaseURL = "http://localhost:6200";
+export const BaseURL = "https://essencebackend.onrender.com";

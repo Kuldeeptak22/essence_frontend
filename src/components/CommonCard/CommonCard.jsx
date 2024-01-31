@@ -36,7 +36,7 @@ const CommonCard = ({ elem }) => {
               component="img"
               height="100%"
               width="100px"
-              image={`${BaseURL}/uploads/subCategories/${elem?.image}`}
+              image={`${BaseURL}/uploads/subcategories/${elem?.image}`}
               alt={elem?.name}
             />
             <CardContent>

@@ -22,6 +22,7 @@ import MyProfile from "./pages/MyProfile";
 import SearchPage from "./pages/SearchPage";
 
 function App() {
+  let token = localStorage.getItem("UserToken");
   return (
     <div className="App">
       <Router>
@@ -41,7 +42,7 @@ function App() {
           <Route path="/signUp" element={<SignUpPage />} />
           <Route
             path="/myProfile"
-            element={<MyProfile />}
+            element={token ? <MyProfile /> : <SignInPage />}
           />
           <Route path="/searchPage/:search" element={<SearchPage />} />
           <Route

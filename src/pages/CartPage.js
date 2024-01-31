@@ -74,7 +74,7 @@ const CartPage = () => {
               Please login first to view your cart.😀
             </div>
             <div className="my-4">
-              Go To Login Page
+              <span className="mx-2">Go To Login Page</span>
               <Button variant="contained" onClick={goToLoginPage}>
                 Login
               </Button>
